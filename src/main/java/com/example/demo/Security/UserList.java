@@ -27,6 +27,17 @@ public class UserList {
     @Column(name = "username")
     private String username;
 
+    public Boolean getUsertype() {
+        return usertype;
+    }
+
+    public void setUsertype(Boolean usertype) {
+        this.usertype = usertype;
+    }
+
+    @Column(name = "usertype")
+    private Boolean usertype;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))

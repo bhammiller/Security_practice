@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="www.thymeleaf.org"
+      xmlns:sec="http://www.tymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <meta charset="UTF-8"/>
     <title>Homepage</title>
+    <th:block th:replace="/timtemplates::headstuff"></th:block>
 </head>
 <body>
+<div th:replace="/timtemplates::headstuff"></div>
+<div th:replace="/timtemplates::navbarfragement"></div>
+
+<span sec:authorize="isAnonymous()"><h1>Welcome please Register or Login</h1></span>
+
+<span sec:authorize="isAuthenticated()">
+    <div class="container">
+        <p sec:authentication="principal.authorities"></p>
+        <p sec:authentication="name"></p>
+    </div>
+</span>
+
+    <th:block th:replace="/timtemplates::bootstrap4js"></th:block>
 
 </body>
 </html>

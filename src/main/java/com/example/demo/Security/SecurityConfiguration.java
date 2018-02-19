@@ -30,11 +30,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers().hasAuthority("APPLICANT")
+                .antMatchers("/","login","/register","/css/**","/fonts/**","/js/**","/img/**","/sass/**").permitAll()
+                .antMatchers("/logout").hasAnyAuthority("APPLICANT","ADMIN","EMPLOYER")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/login").permitAll()
+                .formLogin().loginPage("/login").successForwardUrl("/").permitAll()
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
@@ -49,6 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
+        auth.inMemoryAuthentication().withUser("bhammiller").password("password").authorities("ADMIN");
 
         auth.userDetailsService(userDetailsServiceBean());
 
